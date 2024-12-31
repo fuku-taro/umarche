@@ -25,10 +25,12 @@
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('user.login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    <a href="{{ route('admin.login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">管理者ログイン</a>
+                    <a href="{{ route('owner.login') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">オーナーログイン</a>
                     @auth('users')
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+                        <a href="{{ url('/dashboard') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
                     @else
-                        <a href="{{ route('user.login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+                        <a href="{{ route('user.login') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
                         @if (Route::has('user.register'))
                             <a href="{{ route('user.register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
