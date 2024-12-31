@@ -17,7 +17,7 @@ class OwnerSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 1; $i <= 100; $i++){
+        for($i = 1; $i <= 30; $i++){
             DB::table('owners')->insert([
                 [
                     'name' => 'test_owner'. $i,
@@ -25,18 +25,6 @@ class OwnerSeeder extends Seeder
                     'password' => Hash::make('password123'),
                     'created_at' => Carbon::now()->subMinute($i),
                 ],
-                // [
-                //     'name' => 'test_owner2',
-                //     'email' => 'owner2@owner.com',
-                //     'password' => Hash::make('password123'),
-                //     'created_at' => Carbon::now()->subMinute(),
-                // ],
-                // [
-                //     'name' => 'test_owner3',
-                //     'email' => 'owner3@owner.com',
-                //     'password' => Hash::make('password123'),
-                //     'created_at' => Carbon::now()->subHour(),
-                // ]
             ]);
         }
     }
