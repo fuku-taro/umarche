@@ -14,7 +14,7 @@
                     <div class="container px-5 mx-auto">
 
                       {{-- フラッシュメッセージ --}}
-                      <x-flash-message status="info" />
+                      <x-flash-message status="session('status')" />
 
                       <div class="lg:w-2/3 w-full mx-auto overflow-auto">
                         <div class="flex justify-end mb-4">
@@ -29,6 +29,7 @@
                               <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">メールアドレス</th>
                               <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">作成日</th>
                               <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
+                              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -42,6 +43,15 @@
                                   編集
                                 </button>
                               </td>
+                              <form id="delete_{{$owner->id}}" method="POST" action="{{ route('admin.owners.destroy', ['owner' => $owner->id]) }}">
+                                @csrf
+                                @method('delete')
+                                <td class="px-4 py-3">
+                                  <a href="#" data-id="{{ $owner->id }}" onclick="deletePost(this)" class="text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded">
+                                    削除
+                                  </a>
+                                </td>
+                              </form>
                             </tr>
                             @endforeach
                           </tbody>
@@ -65,4 +75,12 @@
           </div>
       </div>
   </div>
+  <script>
+    function deletePost(e) {
+      'use strict';
+      if (confirm('本当に削除してもいいですか?')) {
+        document.getElementById('delete_' + e.dataset.id).submit();
+      }
+    }
+  </script>
 </x-app-layout>
