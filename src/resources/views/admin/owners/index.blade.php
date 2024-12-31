@@ -22,6 +22,10 @@
                             新規登録する
                           </button>
                         </div>
+                        {{-- ページネーション --}}
+                        <div class="my-4">
+                          {{ $owners->links() }}
+                        </div>
                         <table class="table-auto w-full text-left whitespace-no-wrap">
                           <thead>
                             <tr>
@@ -56,6 +60,12 @@
                             @endforeach
                           </tbody>
                         </table>
+
+                        {{-- ページネーション --}}
+                        <div class="my-4">
+                          {{ $owners->links() }}
+                        </div>
+
                       </div>
 
                     </div>
