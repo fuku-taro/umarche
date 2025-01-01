@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OwnerUpdateRequest;
 use App\Models\Owner; // エロクアント
+use App\Models\Shop; // エロクアント
 use Illuminate\Support\Facades\DB; // クエリビルダ
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
+use Throwable;
 
 class OwnersController extends Controller
 {
@@ -62,18 +65,27 @@ class OwnersController extends Controller
      */
     public function store(OwnerUpdateRequest $request)
     {
-        // $request->validate([
-        //     'name' => ['required', 'string', 'max:255'],
-        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Owner::class],
-        //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        // ]);
+        try{
+            DB::transaction(function() use($request){
+                $owner = Owner::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                ]);
 
-        Owner::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
+                Shop::create([
+                    'owner_id' => $owner->id,
+                    'name' => '店名を入力してください',
+                    'information' => '',
+                    'filename' => '',
+                    'is_selling' => true,
+                ]);
+            }, 2); //試行回数
+        }catch(Throwable $e){
+            Log::error($e);
+            throw $e;
+        }
+        
         return redirect()
         ->route('admin.owners.index')
         ->with([
