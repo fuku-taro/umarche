@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\OwnerUpdateRequest;
+use App\Http\Requests\UploadImageRequest;
 use App\Models\Owner; // エロクアント
 use App\Models\Shop; // エロクアント
 use Illuminate\Support\Facades\DB; // クエリビルダ
@@ -53,7 +53,7 @@ class ShopController extends Controller
         return view('owner.shops.edit', compact('shop'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UploadImageRequest $request, $id)
     {
             // リクエストから送信された画像ファイルを取得
         $imageFile = $request->image; // 一時保存
