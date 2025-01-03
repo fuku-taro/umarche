@@ -55,19 +55,30 @@ class ShopController extends Controller
 
     public function update(Request $request, $id)
     {
-        $imageFile = $request->image; //一時保存
-        if(!is_null($imageFile) && $imageFile->isValid() ){
-            // リサイズなしの場合
+            // リクエストから送信された画像ファイルを取得
+        $imageFile = $request->image; // 一時保存
+
+        // 画像ファイルが存在し、有効である場合に処理を実行
+        if (!is_null($imageFile) && $imageFile->isValid()) {
+
+            // リサイズを行わない場合の保存方法
             // Storage::putFile('public/shops', $imageFile);
 
-            // リサイズありの場合
+            // リサイズを行う場合の処理
+            // 一意のファイル名を生成（ランダムな文字列を元に）
             $fileName = uniqid(rand().'_');
+
+            // 画像ファイルの拡張子を取得
             $extension = $imageFile->extension();
-            $fileNameToStore = $fileName. '.' . $extension;
+
+            // 保存用のファイル名を生成（例: abc123.jpg）
+            $fileNameToStore = $fileName . '.' . $extension;
+
+            // Intervention Imageを使用して画像を1920x1080にリサイズし、エンコード
             $resizedImage = InterventionImage::make($imageFile)->resize(1920, 1080)->encode();
 
-            // dd($imageFile, $resizedImage);
-            Storage::put('public/shops/' . $fileNameToStore, $resizedImage );
+            // リサイズ後の画像を指定したディレクトリに保存
+            Storage::put('public/shops/' . $fileNameToStore, $resizedImage);
         }
 
         return redirect()->route('owner.shops.index');
