@@ -4,18 +4,42 @@ EXPOSE 5173
 # 作成した設定ファイルをコンテナ内にコピー
 COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
 
+# # パッケージのインストール
+# RUN apt-get update \
+#   && apt-get -y install git zip unzip vim \
+#   wget xz-utils
+
+# RUN docker-php-ext-install pdo_mysql mysqli
+
+# RUN apt-get -y install libzip-dev \
+#   && docker-php-ext-install zip
+
+# RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+# RUN apt-get install -y nodejs
+
 # パッケージのインストール
 RUN apt-get update \
-  && apt-get -y install git zip unzip vim \
-  wget xz-utils
-
-RUN docker-php-ext-install pdo_mysql mysqli
-
-RUN apt-get -y install libzip-dev \
-  && docker-php-ext-install zip
+  && apt-get -y install nodejs\
+  git \
+  zip \
+  unzip \
+  vim \
+  wget \
+  xz-utils \
+  libzip-dev \
+  libjpeg-dev \
+  libpng-dev \
+  libfreetype6-dev \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg \
+  && docker-php-ext-install \
+  gd \
+  pdo_mysql \
+  mysqli \
+  zip \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
-RUN apt-get install -y nodejs
 
 # composerのインストール
 RUN cd /usr/bin && curl -s http://getcomposer.org/installer | php && ln -s /usr/bin/composer.phar /usr/bin/composer
