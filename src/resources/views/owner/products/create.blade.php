@@ -29,6 +29,9 @@
                         </div>
 
                         <x-select-image name="image1" :images="$images" />
+                        <x-select-image name="image2" :images="$images" />
+                        <x-select-image name="image3" :images="$images" />
+                        <x-select-image name="image4" :images="$images" />
 
                         
 
@@ -48,7 +51,7 @@
   </div>
   <script>
     'use strict'
-    const images = document.querySelectorAl('.image') //全てのimageタグを取得
+    const images = document.querySelectorAll('.image') //全てのimageタグを取得
     
     images.forEach(image => { // 1つずつ繰り返す
       image.addEventListener('click', function(e){ // クリックしたら
