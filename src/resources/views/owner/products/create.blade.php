@@ -32,6 +32,7 @@
                         <x-select-image name="image2" :images="$images" />
                         <x-select-image name="image3" :images="$images" />
                         <x-select-image name="image4" :images="$images" />
+                        <x-select-image name="image5" :images="$images" />
 
                         
 
