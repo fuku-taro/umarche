@@ -11,7 +11,32 @@
               <div class="p-6 text-gray-900">
                   <div class="md:flex md:justify-around">
                     <div class="md:w-1/2">
-                      <x-thumbnail filename="{{ $product->imageFirst->filename ?? '' }}" type="products" />
+                      <!-- Slider main container -->
+                      <div class="swiper">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper">
+                          <!-- Slides -->
+                          <div class="swiper-slide">
+                            <img src="{{ asset('storage/products/sample1.jpg') }}" alt="">
+                          </div>
+                          <div class="swiper-slide">
+                            <img src="{{ asset('storage/products/sample2.jpg') }}" alt="">
+                          </div>
+                          <div class="swiper-slide">
+                            sss
+                          </div>
+                          ...
+                        </div>
+                        <!-- If we need pagination -->
+                        <div class="swiper-pagination"></div>
+
+                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+
+                        <!-- If we need scrollbar -->
+                        <div class="swiper-scrollbar"></div>
+                      </div>
                     </div>
                     <div class="md:w-1/2 ml-4">
                       <h2 class="mb-4 text-sm title-font text-gray-500 tracking-widest">{{ $product->category->name }}</h2>
@@ -42,4 +67,5 @@
           </div>
       </div>
   </div>
+
 </x-app-layout>
