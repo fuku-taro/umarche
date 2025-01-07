@@ -17,15 +17,34 @@
                         <div class="swiper-wrapper">
                           <!-- Slides -->
                           <div class="swiper-slide">
-                            <img src="{{ asset('storage/products/sample1.jpg') }}" alt="">
+                            @if (!is_null($product->imageFirst->filename))
+                              <img src="{{ asset('storage/products/' . $product->imageFirst->filename )}}">
+                            @else
+                              <img src="{{ asset('images/no_image.jpg') }}">
+                            @endif
                           </div>
                           <div class="swiper-slide">
-                            <img src="{{ asset('storage/products/sample2.jpg') }}" alt="">
+                            @if (!is_null($product->imageSecond->filename))
+                              <img src="{{ asset('storage/products/' . $product->imageSecond->filename )}}">
+                            @else
+                              <img src="{{ asset('images/no_image.jpg') }}">
+                            @endif
                           </div>
                           <div class="swiper-slide">
-                            sss
+                            @if (!is_null($product->imageThird->filename))
+                              <img src="{{ asset('storage/products/' . $product->imageThird->filename )}}">
+                            @else
+                              <img src="{{ asset('images/no_image.jpg') }}">
+                            @endif
                           </div>
-                          ...
+                          <div class="swiper-slide">
+                            @if (!is_null($product->imageFourth->filename))
+                              <img src="{{ asset('storage/products/' . $product->imageFourth->filename )}}">
+                            @else
+                              <img src="{{ asset('images/no_image.jpg') }}">
+                            @endif
+                          </div>
+                          
                         </div>
                         <!-- If we need pagination -->
                         <div class="swiper-pagination"></div>
