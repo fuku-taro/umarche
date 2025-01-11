@@ -65,7 +65,7 @@ class CartController extends Controller
             $quantity = Stock::where('product_id', $product->id)->sum('quantity');
 
             if($product->pivot->quantity > $quantity){
-                dd('aaa');
+                // dd('aaa');
                 return redirect()->route('user.cart.index');
             } else {
                 $price_data = ([
@@ -104,12 +104,19 @@ class CartController extends Controller
             // 'payment_method_types' => ['card'],
             'line_items' => [$lineItems],
             'mode' => 'payment',
-            'success_url' => route('user.items.index'),
+            'success_url' => route('user.cart.success'),
             'cancel_url' => route('user.cart.index'),
         ]);
 
         $publicKey = env('STRIPE_PUBLIC_KEY');
 
         return view('user.checkout', compact('session', 'publicKey'));
+    }
+
+    public function success()
+    {
+        Cart::where('user_id', Auth::id())->delete();
+
+        return redirect()->route('user.items.index');
     }
 }
