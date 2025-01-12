@@ -9,6 +9,8 @@ use App\Models\Stock;
 use Illuminate\Support\Facades\DB;
 use App\Models\PrimaryCategory;
 
+use function PHPUnit\Framework\isEmpty;
+
 class ItemController extends Controller
 {
     public function __construct()
@@ -32,12 +34,14 @@ class ItemController extends Controller
         // dd($request);
         $products = Product::availableItems()
             ->selectCategory($request->category ?? '0')
+            ->searchKeyword($request->keyword)
             ->sortOrder($request->sort)
             ->paginate($request->pagination ?? '20');
 
         $categories = PrimaryCategory::with('secondary')
         ->get();
 
+        // dd($products->isEmpty());
         return view('user.index', compact('products', 'categories'));
     }
 
