@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Stock;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use App\Models\PrimaryCategory;
+use App\Mail\TestMail;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -32,6 +33,9 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         // dd($request);
+        Mail::to('test@example.com')
+        ->send(new TestMail());
+
         $products = Product::availableItems()
             ->selectCategory($request->category ?? '0')
             ->searchKeyword($request->keyword)
