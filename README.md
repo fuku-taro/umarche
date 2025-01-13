@@ -9,6 +9,7 @@ git clone https://github.com/fuku-taro/umarche.git
 ## インストール方法
 
 - docker compose up -d --build
+  
   app コンテナに入り
 - composer install または composer update
 - npm install
