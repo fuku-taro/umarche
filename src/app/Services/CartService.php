@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 use App\Models\Cart;
 
@@ -24,7 +23,6 @@ class CartService
       // オーナー情報のキーを変更
       $ownerInfo = array_combine($keys, $values);
       
-
       // 商品情報の配列
       $product = Product::where('id', $item->product_id)
           ->select('id', 'name', 'price')->get()->toArray(); 
@@ -37,7 +35,7 @@ class CartService
       // 配列に追加
       array_push($products, $result);
     }
-dd($products);
+
     return $products;
   }
 }
